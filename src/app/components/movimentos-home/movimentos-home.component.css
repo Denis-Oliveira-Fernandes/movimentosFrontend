@@ -1,0 +1,41 @@
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 5%;
+}
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 14px;
+}
+td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 14px;
+}
+tr:nth-child(odd) {
+  background-color: #eeeeee;
+}
+label{
+  margin-bottom: 1%;
+}
+.leftGroup{
+  width: 48%;
+  float: left;
+}
+.leftOnlyGroup{
+  width: 48%;
+}
+.rightGroup{
+  margin-left: 52%;
+}
+.buttonBlock{
+  float: right;
+  margin-right: 52%;
+  margin-top: 15px;
+  margin-bottom: 55px 
+}
+.buttons{
+  margin-left: 4px;
+}

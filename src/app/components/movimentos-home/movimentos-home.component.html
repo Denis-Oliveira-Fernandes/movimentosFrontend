@@ -1,0 +1,100 @@
+<div class="container">
+    <h2>Movimentos Manuais</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-group leftGroup">
+            <label for="dataMes">Mês:</label>
+            <input type="number" class="form-control" formControlName="dataMes"
+                onkeypress='return event.charCode >= 48 && event.charCode <= 57' min="1" max="12" required
+                oninvalid="test">
+
+            <div style="margin-bottom: -500px;" *ngIf="f['dataMes'].touched && f['dataMes'].invalid"
+                class="alert alert-danger">
+                Mês inválido
+                <div *ngIf="f['dataMes'].errors && f['dataMes'].errors['required']">Insira o Mês</div>
+            </div>
+        </div>
+
+        <div class="form-group rightGroup">
+            <label for="dataAno">Ano:</label>
+            <input type="number" class="form-control" formControlName="dataAno"
+                onkeypress='return event.charCode >= 48 && event.charCode <= 57' min="1900" max="2079" required>
+
+            <div style="margin-bottom: -1px;" *ngIf="f['dataAno'].touched && f['dataAno'].invalid" class="alert alert-danger">
+                Ano inválido
+                <div *ngIf="f['dataAno'].errors && f['dataAno'].errors['required']">Insira o Ano</div>
+            </div>
+        </div>
+
+        <div class="form-group leftGroup">
+            <label for="codProduto">Produto:</label>
+            <select formControlName="codProduto" class="form-control" (change)="changeProduto($event)"
+                [ngModel]="codProduto">
+                <option [hidden] value="" disabled selected>-- Selecione --</option>
+                <option *ngFor="let produto of produtos" [value]="produto.codProduto">{{produto.desProduto}}</option>
+            </select>
+            <div *ngIf="f['codProduto'].touched && f['codProduto'].invalid" class="alert alert-danger">
+                <div *ngIf="f['codProduto'].errors && f['codProduto'].errors['required']">Selecione o Produto</div>
+            </div>
+        </div>
+
+        <div class="form-group rightGroup">
+            <label for="codCosif">Cosif:</label>
+            <select formControlName="codCosif" class="form-control" (change)="changeProdutoCosif($event)"
+                [ngModel]="codCosif">
+                <option value="" disabled selected>-- Selecione --</option>
+                <option *ngFor="let prodCosif of produtoCosif" [value]="prodCosif.codCosif">
+                    {{prodCosif.codCosif}} - ({{prodCosif.codClassificacao}})</option>
+            </select>
+            <div *ngIf="f['codCosif'].touched && f['codCosif'].invalid" class="alert alert-danger">
+                <div *ngIf="f['codCosif'].errors && f['codCosif'].errors['required']">Selecione o Cosif</div>
+            </div>
+        </div>
+
+        <div class="form-group leftOnlyGroup">
+            <label for="valor">Valor:</label>
+            <input type="number" class="form-control" formControlName="valor" pattern="^\d*(\.\d{0,2})?$" required>
+
+            <div *ngIf="f['valor'].touched && f['valor'].invalid" class="alert alert-danger">
+                Valor inválido
+                <div *ngIf="f['valor'].errors && f['valor'].errors['required']">Insira o Valor</div>
+            </div>
+        </div>
+
+        <div class="form-group leftOnlyGroup">
+            <label for="descricao">Descrição:</label>
+            <textarea class="form-control" formControlName="descricao" required></textarea>
+
+            <div *ngIf="f['descricao'].touched && f['descricao'].invalid" class="alert alert-danger">
+                <div *ngIf="f['descricao'].errors && f['descricao'].errors['required']">Insira Descrição</div>
+            </div>
+        </div>
+
+        <div class="buttonBlock">
+            <button class="btn-primary" type='button' (click)="clearForm()">Limpar</button>
+            <button class="btn-primary buttons" type='button' (click)="enableForm()">Novo</button>
+            <button class="btn-primary buttons" type="submit" [disabled]="!form.valid">Incluir</button>
+        </div>
+    </form>
+
+    <table>
+        <tr>
+            <th>Mês</th>
+            <th>Ano</th>
+            <th>Código do Produto</th>
+            <th>Descrição do Produto</th>
+            <th>NR Lançamento</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+        </tr>
+        <tr *ngFor="let movimento of movimentosLanding" style="text-align: center;">
+            <td>{{movimento.dataMes | number: '2.0-0'}}</td>
+            <td>{{movimento.dataAno}}</td>
+            <td>{{movimento.codProduto}}</td>
+            <td>{{movimento.descricaoProduto}}</td>
+            <td>{{movimento.numeroLancamento | number: '3.0-0'}}</td>
+            <td>{{movimento.descricao}}</td>
+            <td>{{movimento.valor | number: '0.2-2'}}</td>
+        </tr>
+    </table>
+</div>
